@@ -17,15 +17,22 @@ RUN \
   echo "*** cert migration for nginx ***" && \
   echo "ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;" > /etc/nginx/snippets/self-signed.conf && \
   echo "ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;" >> /etc/nginx/snippets/self-signed.conf
-
-# nginx tlsv1.2 only
-RUN echo "ssl_protocols TLSv1.2;ssl_prefer_server_ciphers on;ssl_dhparam /etc/nginx/dhparam.pem;ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384;ssl_ecdh_curve secp384r1; # Requires nginx >= 1.1.0ssl_session_timeout  10m;ssl_session_cache shared:SSL:10m;ssl_session_tickets off; # Requires nginx >= 1.5.9ssl_stapling on; # Requires nginx >= 1.3.7ssl_stapling_verify on; # Requires nginx => 1.3.7resolver 8.8.8.8 8.8.4.4 valid=300s;resolver_timeout 5s;# Disable strict transport security for now. You can uncomment the following# line if you understand the implications.# add_header Strict-Transport-Security \"max-age=63072000; includeSubDomains; preload\";add_header X-Frame-Options DENY;add_header X-Content-Type-Options nosniff;add_header X-XSS-Protection \"1; mode=block\";" > /etc/nginx/snippets/ssl-params.conf
-
-# https nginx config
-RUN sed -i 's/# listen 443 ssl default_server;/listen 443 ssl default_server;/g' /etc/nginx/sites-available/default
-RUN sed -i 's/# listen \[::\]:443 ssl default_server;/listen \[::\]:443 ssl default_server;/g' /etc/nginx/sites-available/default
-RUN sed -i '/server_name _;/a \        ssl_certificate \/etc\/ssl\/certs\/nginx-selfsigned.crt;' /etc/nginx/sites-available/default
-RUN sed -i '/ssl_certificate \/etc\/ssl\/certs\/nginx-selfsigned.crt;/a \        ssl_certificate_key \/etc\/ssl\/private\/nginx-selfsigned.key;' /etc/nginx/sites-available/default 
+  echo "*** nginx tlsv1.2 only ***" && \
+  echo "ssl_protocols TLSv1.2;ssl_prefer_server_ciphers on;ssl_dhparam /etc/nginx/dhparam.pem;ssl_ciphers "\
+    "ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:"\
+    "DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384;ssl_ecdh_curve secp384r1; "\
+    "# Requires nginx >= 1.1.0ssl_session_timeout  10m;ssl_session_cache shared:SSL:10m;ssl_session_tickets off; "\
+    "# Requires nginx >= 1.5.9ssl_stapling on; # Requires nginx >= 1.3.7ssl_stapling_verify on; "\
+    "# Requires nginx => 1.3.7resolver 8.8.8.8 8.8.4.4 valid=300s;resolver_timeout 5s;"\
+    "# Disable strict transport security for now. You can uncomment the following# line if you understand the implications."\
+    "# add_header Strict-Transport-Security \"max-age=63072000; includeSubDomains; preload\";"\
+    "add_header X-Frame-Options DENY;add_header X-Content-Type-Options nosniff;add_header X-XSS-Protection \"1; mode=block\";" \
+    > /etc/nginx/snippets/ssl-params.conf && \
+  echo "*** https nginx config***" && \
+  sed -i 's/# listen 443 ssl default_server;/listen 443 ssl default_server;/g' /etc/nginx/sites-available/default && \
+  sed -i 's/# listen \[::\]:443 ssl default_server;/listen \[::\]:443 ssl default_server;/g' /etc/nginx/sites-available/default && \
+  sed -i '/server_name _;/a \        ssl_certificate \/etc\/ssl\/certs\/nginx-selfsigned.crt;' /etc/nginx/sites-available/default && \
+  sed -i '/ssl_certificate \/etc\/ssl\/certs\/nginx-selfsigned.crt;/a \        ssl_certificate_key \/etc\/ssl\/private\/nginx-selfsigned.key;' /etc/nginx/sites-available/default 
 
 STOPSIGNAL SIGTERM
 

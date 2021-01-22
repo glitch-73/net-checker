@@ -7,7 +7,7 @@ I use this as a personal project for my own clusters, but new features are accep
 
 SSL cert for nginx is not intended to be secure since it's generated per build, so anyone could have the private key, just to have something else to test HTTPS out, use said certs under your own risk, building an image from this Dockerfile should provide "new" unused random SSL cert automatically.
 
-I contribute here on my own personal time, so I will handle this on a "as soon as possible" basis.
+This is a side project of mine, so new features may take a while.
 
 Feel free to push new features if interested.
 
