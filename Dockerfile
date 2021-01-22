@@ -8,7 +8,7 @@ RUN \
     netcat net-tools dnsutils traceroute nginx && \
   echo "*** cleaning cache packets ***" && \
   rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* && \
-  apt-get clean && apt-get -y autoremove && apt cache deletion && \
+  apt-get clean && apt-get -y autoremove && \
   echo "*** ssl cert creation ***" && \
   openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout /etc/ssl/private/nginx-selfsigned.key -out /etc/ssl/certs/nginx-selfsigned.crt \
@@ -33,4 +33,4 @@ STOPSIGNAL SIGTERM
 CMD ["nginx", "-g", "daemon off;"]
 
 # port recommendation
-EXPOSE 80 443 444
+EXPOSE 80 443
