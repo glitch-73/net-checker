@@ -16,7 +16,7 @@ RUN \
   openssl dhparam -out /etc/nginx/dhparam.pem 4096 && \
   echo "*** cert migration for nginx ***" && \
   echo "ssl_certificate /etc/ssl/certs/nginx-selfsigned.crt;" > /etc/nginx/snippets/self-signed.conf && \
-  echo "ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;" >> /etc/nginx/snippets/self-signed.conf
+  echo "ssl_certificate_key /etc/ssl/private/nginx-selfsigned.key;" >> /etc/nginx/snippets/self-signed.conf && \
   echo "*** nginx tlsv1.2 only ***" && \
   echo "ssl_protocols TLSv1.2;ssl_prefer_server_ciphers on;ssl_dhparam /etc/nginx/dhparam.pem;ssl_ciphers "\
     "ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:"\
