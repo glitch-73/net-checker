@@ -1,6 +1,5 @@
 FROM debian:buster-slim
 
-# basic install packages
 RUN \
   apt-get update && apt-get -y upgrade && \
   apt-get -y --no-install-recommends --no-install-suggests install \
