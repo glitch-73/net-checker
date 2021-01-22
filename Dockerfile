@@ -32,7 +32,8 @@ RUN \
   sed -i 's/# listen 443 ssl default_server;/listen 443 ssl default_server;/g' /etc/nginx/sites-available/default && \
   sed -i 's/# listen \[::\]:443 ssl default_server;/listen \[::\]:443 ssl default_server;/g' /etc/nginx/sites-available/default && \
   sed -i '/server_name _;/a \        ssl_certificate \/etc\/ssl\/certs\/nginx-selfsigned.crt;' /etc/nginx/sites-available/default && \
-  sed -i '/ssl_certificate \/etc\/ssl\/certs\/nginx-selfsigned.crt;/a \        ssl_certificate_key \/etc\/ssl\/private\/nginx-selfsigned.key;' /etc/nginx/sites-available/default 
+  sed -i '/ssl_certificate \/etc\/ssl\/certs\/nginx-selfsigned.crt;/a \        ssl_certificate_key \/etc\/ssl\/private\/nginx-selfsigned.key;' \
+    /etc/nginx/sites-available/default 
 
 STOPSIGNAL SIGTERM
 
