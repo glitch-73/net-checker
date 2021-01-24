@@ -5,6 +5,10 @@ RUN \
   apt-get -y --no-install-recommends --no-install-suggests install \
     iproute2 wget curl nmap openssl tcpdump iperf3 bash-completion \
     netcat net-tools dnsutils traceroute nginx && \
+  echo "*** netperf install ***" && \
+  echo "deb http://deb.debian.org/debian bullseye non-free" >> /etc/apt/sources.list && \
+  apt-get update && apt-get -y install netperf && \
+  sed -i '$ d' /etc/apt/sources.list && \
   echo "*** cleaning cache packets ***" && \
   rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/* && \
   apt-get clean && apt-get -y autoremove && \
