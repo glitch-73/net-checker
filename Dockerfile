@@ -4,7 +4,7 @@ RUN \
   apt-get update && apt-get -y upgrade && \
   apt-get -y --no-install-recommends --no-install-suggests install \
     iproute2 wget curl nmap openssl tcpdump iperf3 bash-completion \
-    netcat net-tools dnsutils traceroute nginx && \
+    netcat net-tools dnsutils traceroute nginx tcpdump mtr && \
   echo "*** netperf install ***" && \
   echo "deb http://deb.debian.org/debian bullseye non-free" >> /etc/apt/sources.list && \
   apt-get update && apt-get -y install netperf && \
