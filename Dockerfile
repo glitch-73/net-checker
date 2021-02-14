@@ -8,6 +8,6 @@ RUN set -x \
 
 STOPSIGNAL SIGTERM
 
-EXPOSE 80 443 444
+EXPOSE 80 443
 
 CMD ["nginx", "-g", "daemon off;"]
