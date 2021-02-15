@@ -3,8 +3,10 @@ FROM alpine:latest
 
 RUN apk update && apk add nginx
 
-RUN set -x \
-    && addgroup -g 101 -S nginx && adduser -g 101 -h /home/nginx -s /sbin/nologin -G nginx -g nginx nginx
+RUN adduser -D -g 'www' www && mkdir /www /run/nginx && chown -R www:www /var/lib/nginx /www /run/nginx
+
+COPY nginx.conf /etc/nginx/nginx.conf
+Copy index.html /www/index.html
 
 STOPSIGNAL SIGTERM
 
