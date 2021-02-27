@@ -11,4 +11,4 @@ This is a side project of mine, so new features may take a while.
 
 Feel free to push new features if interested.
 
-Alpine branch it's on it's way :)
+Alpine branch it's now slowly catching up :)
